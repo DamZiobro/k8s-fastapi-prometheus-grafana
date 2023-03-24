@@ -1,25 +1,24 @@
-APP_NAME=xmementoit-k8s-development-website
+APP_NAME=k8s-fastapi-monitoring
 
 APP_LOCAL_PORT=3000
 DOCKER_REG_PORT=5000
 DOCKER_REG_CONTAINER=local-docker-registry
 DOCKER_REG_URL=localhost:$(DOCKER_REG_PORT)
-DOCKER_IMAGE_NAME=
-DOCKER_IMAGE_NAME=xmementoit-k8s-development.com
+DOCKER_IMAGE_NAME=k8s-fastapi-monitoring.com
 
 #=========================================================
-# LCOAL DEV docker commands
+# LOCAL DEV docker commands
 #=========================================================
 
 deps: ## verifies project-related dependency tools are up and running
 	@docker --version || (echo "docker tool is NOT installed on your local machine" && false)
 
 build: deps ## build project-related docker images
-	docker build -t $(DOCKER_IMAGE_NAME) .
+	docker build -t $(DOCKER_IMAGE_NAME) api
 
 run: deps ## runs project-related docker container (build must be performed first)
-	docker run -d --name $(DOCKER_IMAGE_NAME) -p $(APP_LOCAL_PORT):80 $(APP_NAME)
-	echo "website is up-and-running on http://localhost:$(APP_LOCAL_PORT)"
+	docker run -d --name $(APP_NAME) -p $(APP_LOCAL_PORT):80 $(DOCKER_IMAGE_NAME)
+	echo "API is up-and-running on http://localhost:$(APP_LOCAL_PORT)"
 
 stop: ## stops project-related docker containers (without deleting them)
 	docker stop -d --name $(APP_NAME)
@@ -38,7 +37,7 @@ push: build ## pushes project-related docker images into local docker registry
 	docker push $(DOCKER_REG_URL)/$(DOCKER_IMAGE_NAME)
 
 deploy: push kind-deps ## deploys project using k8s
-	helm upgrade --atomic --install $(APP_NAME) ./helm
+	helm upgrade --atomic --install $(APP_NAME) ./helm-charts
 
 undeploy: kind-deps ## deletes project using k8s
 	helm uninstall $(APP_NAME) || true
@@ -105,3 +104,4 @@ status-ingress-controller: kind-deps ## get status of ingress-controller
 run-full-k8s-env: create-kind-cluster run-local-docker-registry connect-registry-to-kind-network connect-registry-to-kind run-ingress-controller ## generates ALL local resources related to k8s deployment
 
 dist-clean: undeploy delete-local-docker-registry delete-ingress-controller delete-kind-cluster clean ## delete all project-related docker images, docker containers (including local kind k8s cluster and local docker registry)
+

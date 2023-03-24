@@ -1,0 +1,6 @@
+appName: k8s-fastapi-monitoring
+websiteHost: k8s-fastapi-monitoring.com
+imageName: localhost:5000/k8s-fastapi-monitoring.com
+replicas: 1
+serviceName: k8s-fastapi-monitoring-service
+sourcePort: 80

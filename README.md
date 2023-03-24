@@ -25,7 +25,7 @@ Kubernetes Development Environment - template project for kubernetes-based DevOp
 1. Run k8s local cluster and local [docker registry](https://docs.docker.com/registry/) using [kind](https://kind.sigs.k8s.io/): `make run-full-k8s-env`
 2. Build project-related docker image and push to local docker registry: `make push`
 3. Deploy docker image to local k8s cluster: `make deploy`
-3. Make sure the website is up and running: `firefox http://xmementoit-k8s-development.com`
+3. Make sure the website is up and running: `firefox http://k8s-fastapi-monitoring.com`
 
 
 ## Developers - all development commands
@@ -67,5 +67,4 @@ Kubernetes Development Environment - template project for kubernetes-based DevOp
 
 ## Based on Linkedin course
 
-This project has been prepared based on course: [Kubernetes: Your First
-Project](https://www.linkedin.com/learning/kubernetes-your-first-project/your-first-project-on-kubernetes?u=0)
+This project has been prepared based on course: [Kubernetes: Your First Project](https://www.linkedin.com/learning/kubernetes-your-first-project/your-first-project-on-kubernetes?u=0)
