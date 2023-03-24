@@ -4,4 +4,5 @@
 * add 2 containers instead of 1
 * integrate with GitHub's CI/CD
 * move microservices deployment structure from [../2_microservices/](../2_microservices/)
-* integrate with cloud-based helm-based deployment => hybrid cloud (AWS, GCP, Azure)
+* integrate with cloud-based helm-based deployment => hybrid cloud (AWS EKS, GCP, Azure)
+* add cookiecutter-based api skeleton
